@@ -132,7 +132,7 @@ prompt_git() {
   local SEGMENT_SEPARATOR BRANCH DETACHED PLUSMINUS CROSS LIGHTNING GEAR
   define_prompt_chars
   is_dirty() {
-    test -n "$(git status --porcelain --ignore-submodules)"
+    test -n "$(git status --porcelain --ignore-submodules 2>/dev/null)"
   }
   ref="$vcs_info_msg_0_"
   if [[ -n "$ref" ]]; then
