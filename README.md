@@ -40,11 +40,35 @@ If you get placeholder squares for the first and third characters, then you are 
 - Whether background jobs are running (⚙)
 
 ## Example
+
 ![Screenshot](images/screenshot.png)
 
 # Installation
 
+## Regular installation
+
 Download the files in this repo somewhere, and have your `~/.zshrc` `source` the `agnosterj.zsh-theme` file.
+
+## Installation under Oh My Zsh
+
+Download the files in this repo somewhere, like `~/local/repos/agnosterj-zsh-theme`.
+
+Then link it into your Oh My Zsh custom setup:
+
+```
+$ ln -s ~/local/repos/agnosterj-zsh-theme/agnosterj.zsh-theme $ZSH_CUSTOM/themes/agnosterj.zsh-theme
+```
+
+Then set it as your theme in your `~/.zshrc` before loading Oh My Zsh:
+
+```
+# This goes in your ~/.zshrc
+
+ZSH_THEME=agnosterj
+plugins=( osx themes )
+ZSH=${ZSH:-$HOME/.oh-my-zsh}
+source $ZSH/oh-my-zsh.zsh
+```
 
 # Configuration
 
@@ -65,9 +89,8 @@ By default, the prompt has these segments in this order:
 - `prompt_virtualenv`
 - `prompt_dir`
 - `prompt_git`
-- `prompt_end`
 
-If you want to add, remove, or reorder some segments of the prompt, you can use the array environment variable named `AGNOSTER_PROMPT_SEGMENTS`.
+If you want to add, remove, or reorder some segments of the prompt, you can use the array environment variable named `AGNOSTER_PROMPT_SEGMENTS`. There are many prompt segments available that are not enabled by default. See the source code for options!
 
 ### Examples
 
