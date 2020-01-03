@@ -132,15 +132,26 @@ prompt_end() {
 prompt_context() {
   local user=$USER
 
+  local fg bg
+  if [[ -n "$AGNOSTER_CONTEXT_FG" ]]; then
+    fg="$AGNOSTER_CONTEXT_FG"
+  else
+    fg=default
+  fi
+  if [[ -n "$AGNOSTER_CONTEXT_BG" ]]; then
+    bg="$AGNOSTER_CONTEXT_BG"
+  else
+    bg="$AGNJ_COLOR_FG"
+  fi
   if [[ "$user" != "$DEFAULT_USER" ]]; then
     if [[ -n "$SSH_CONNECTION" ]]; then
-      prompt_segment $AGNJ_COLOR_FG default " %(!.%F{yellow}.)$user@%m "
+      prompt_segment "$bg" "$fg" " %(!.%F{yellow}.)$user@%m "
     else
-      prompt_segment $AGNJ_COLOR_FG default " %(!.%F{yellow}.)$user@ "
+      prompt_segment "$bg" "$fg" " %(!.%F{yellow}.)$user@ "
     fi
   else
     if [[ -n "$SSH_CONNECTION" ]]; then
-      prompt_segment $AGNJ_COLOR_FG default " @%m "
+      prompt_segment "$bg" "$fg" " @%m "
     fi
   fi
 }

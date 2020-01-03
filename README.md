@@ -54,6 +54,7 @@ Agnoster can be configured by setting these environment variables.
 * `$AGNOSTER_PATH_STYLE` – `full`, `short`, or `shrink` – Controls how the current directory is displayed.
 * `$VIRTUAL_ENV_DISABLE_PROMPT` – Set this to any nonempty value to disable Python virtualenv/conda env display.
 * `$AGNOSTER_PROMPT_SEGMENTS` - List of segments to include in your prompt.
+* `$AGNOSTER_CONTEXT_FG`, `$AGNOSTER_CONTEXT_BG` – Override colors for the user/host context segment. Useful if you want to set this on a per-host basis.
 
 
 ## Customizing your prompt
