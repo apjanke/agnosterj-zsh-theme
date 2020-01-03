@@ -43,6 +43,10 @@ typeset -aHg AGNOSTER_PROMPT_SEGMENTS=(
     prompt_git
     prompt_kubecontext
 )
+#    prompt_k8s
+#    prompt_aws
+#    prompt_azure
+#    prompt_gcp
 
 ### Color setup
 
@@ -298,6 +302,56 @@ prompt_kubecontext() {
     print -Pn " $env "
   fi
 }
+
+# Cloud info
+prompt_k8s() {
+  if [[ ! -z ${KUBECONFIG} ]]; then
+    k8s_context=$(awk '/current-context/{print $2}' $KUBECONFIG)
+  elif [[ -f "$HOME/.kube/config" ]]; then
+    k8s_context=$(awk '/current-context/{print $2}' $HOME/.kube/config)
+  fi
+  if [[ ! -z ${k8s_context} ]]; then
+    color=cyan
+    prompt_segment $color $AGNJ_COLOR_FG
+    print -Pn " ⎈ ${k8s_context} "
+  fi
+}
+
+prompt_aws() {
+  if [[ ! -z ${AWS_PROFILE} ]]; then
+    color=yellow
+    prompt_segment $color $AGNJ_COLOR_FG
+    print -Pn " ⓦ ${AWS_PROFILE} "
+  elif [[ ! -z ${AWS_DEFAULT_PROFILE} ]]; then
+    color=yellow
+    prompt_segment $color $AGNJ_COLOR_FG
+    print -Pn " ⓦ ${AWS_DEFAULT_PROFILE} "
+  fi
+}
+
+prompt_azure() {
+  if [[ -f "$HOME/.azure/config" ]]; then
+    azure_cloud=$(awk '/name/{print tolower($3)}' $HOME/.azure/config)
+    if [[ ! -z ${azure_cloud} ]]; then
+      color=blue
+      prompt_segment $color $AGNJ_COLOR_FG
+      print -Pn " ⓐ ${azure_cloud} "
+    fi
+  fi
+}
+
+prompt_gcp() {
+  if [ -f "$HOME/.config/gcloud/active_config" ]; then
+    gcp_profile=$(cat $HOME/.config/gcloud/active_config)
+    gcp_project=$(awk '/project/{print $3}' $HOME/.config/gcloud/configurations/config_$gcp_profile)
+    if [ ! -z ${gcp_project} ]; then
+      color=green
+      prompt_segment $color $AGNJ_COLOR_FG
+      print -Pn " ⓖ ${gcp_project} "
+    fi
+  fi
+}
+
 
 # Fs: filesystem on which the current working directory lies
 prompt_fs() {
