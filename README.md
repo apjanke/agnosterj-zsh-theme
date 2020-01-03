@@ -110,24 +110,19 @@ echo "${(F)AGNOSTER_PROMPT_SEGMENTS[@]}" | cat -n
 ```
 - Add a new segment to the beginning:
 ```
-AGNOSTER_PROMPT_SEGMENTS=("prompt_git" "${AGNOSTER_PROMPT_SEGMENTS[@]}")
+AGNOSTER_PROMPT_SEGMENTS=("prompt_aws" "${AGNOSTER_PROMPT_SEGMENTS[@]}")
 ```
 - Add a new segment to the end:
 ```
 AGNOSTER_PROMPT_SEGMENTS+="prompt_end"
 ```
-- Insert a new segment `$PROMPT_SEGMENT_NAME` in the particular position `$PROMPT_SEGMENT_POSITION`:
+- Insert a new segment `$segment_name` in the particular position `$segment_position`:
 ```
 {
-  local PROMPT_SEGMENT_POSITION PROMPT_SEGMENT_NAME
-  PROMPT_SEGMENT_POSITION=5 PROMPT_SEGMENT_NAME="prompt_end";\
-  AGNOSTER_PROMPT_SEGMENTS=("${AGNOSTER_PROMPT_SEGMENTS[@]:0:$PROMPT_SEGMENT_POSITION-1}" "$PROMPT_SEGMENT_NAME" "${AGNOSTER_PROMPT_SEGMENTS[@]:$PROMPT_SEGMENT_POSITION-1}");\
+  local segment_position=5
+  local segment_name="prompt_aws"
+  AGNOSTER_PROMPT_SEGMENTS=("${AGNOSTER_PROMPT_SEGMENTS[@]:0:$segment_position-1}" "$segment_name" "${AGNOSTER_PROMPT_SEGMENTS[@]:$segment_position-1}");\
 }
-```
-- Swap 4th and 5th segments:
-```
-SWAP_SEGMENTS=(4 5);\
-TMP_VAR="$AGNOSTER_PROMPT_SEGMENTS[$SWAP_SEGMENTS[1]]"; AGNOSTER_PROMPT_SEGMENTS[$SWAP_SEGMENTS[1]]="$AGNOSTER_PROMPT_SEGMENTS[$SWAP_SEGMENTS[2]]"; AGNOSTER_PROMPT_SEGMENTS[$SWAP_SEGMENTS[2]]="$TMP_VAR"
 ```
 - Remove the 5th segment:
 ```
