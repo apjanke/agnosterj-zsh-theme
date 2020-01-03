@@ -230,9 +230,16 @@ prompt_hg() {
 
 # Virtualenv: current working virtualenv
 prompt_virtualenv() {
-  local virtualenv_path="$VIRTUAL_ENV"
-  if [[ -n $virtualenv_path && -n $VIRTUAL_ENV_DISABLE_PROMPT ]]; then
-    prompt_segment blue black "(`basename $virtualenv_path`)"
+  local env
+  if [[ -z $VIRTUAL_ENV_DISABLE_PROMPT ]]; then
+    if [[ -n "$CONDA_DEFAULT_ENV" ]]; then
+      env="$CONDA_DEFAULT_ENV"
+    else
+      env="$VIRTUAL_ENV";
+    fi
+    if [[ -n "$env" ]]; then
+      prompt_segment blue black "(`basename \"$virtualenv_path\"`)"
+    fi
   fi
 }
 
