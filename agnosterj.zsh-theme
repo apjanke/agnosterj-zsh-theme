@@ -182,7 +182,6 @@ prompt_dir() {
       if which shrink_path >&/dev/null; then
         # Requires Oh My Zsh's shrink-path plugin or compatible
         path_seg=" $(shrink_path -f) "
-        echo "path_seg = $path_seg" > ~/zsh-debug
       else
         path_seg=$(print -P ' %~ ' | sed -E -e "s#([^a-z]*[a-z])[^/]*/#\1/#g")
       fi
@@ -304,7 +303,6 @@ prompt_kubecontext() {
 
 ## Main prompt
 prompt_agnoster_main() {
-  agnj_debug "agnoster_main running"
   RETVAL=$?
   local AGNJ_CURRENT_BG='NONE'
   if [[ "$AGNOSTER_THEME_VARIANT" != "$AGNJ_LAST_THEME_VARIANT" ]]; then
@@ -312,13 +310,10 @@ prompt_agnoster_main() {
     AGNJ_LAST_THEME_VARIANT="$AGNOSTER_THEME_VARIANT"
   fi
   prompt_status
-  agnj_debug "prompt_status ran"
   prompt_context
-  agnj_debug "prompt_context ran"
   prompt_virtualenv
   prompt_vaulted
   prompt_dir
-  agnj_debug "prompt_dir ran"
   prompt_git
   prompt_kubecontext
   prompt_end
