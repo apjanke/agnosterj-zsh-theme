@@ -74,7 +74,52 @@ define_prompt_chars() {
   # This is defined using a Unicode escape sequence so it is unambiguously readable, regardless of
   # what font the user is viewing this source code in. Do not replace the
   # escape sequence with a single literal character.
-  SEGMENT_SEPARATOR=$'\ue0b0' # 
+  local POWERLINE_SEGMENT_SEPARATOR=$'\ue0b0' # 
+  if [[ -z "$AGNOSTER_SEPARATOR_STYLE" ]]; then
+    SEGMENT_SEPARATOR=$POWERLINE_SEGMENT_SEPARATOR
+  else
+    case "$AGNOSTER_SEPARATOR_STYLE" in
+      curvy)
+        SEGMENT_SEPARATOR=$'\ue0b4'
+        ;;
+      angly)
+        SEGMENT_SEPARATOR=$'\ue0b8'
+        ;;
+      angly-up)
+        SEGMENT_SEPARATOR=$'\ue0bc'
+        ;;
+      flame)
+        SEGMENT_SEPARATOR=$'\ue0c0'
+        ;;
+      littleboxes)
+        SEGMENT_SEPARATOR=$'\ue0c4'
+        ;;
+      boxes)
+        SEGMENT_SEPARATOR=$'\ue0c6'
+        ;;
+      fade)
+        SEGMENT_SEPARATOR=$'\ue0c8'
+        ;;
+      hexes)
+        SEGMENT_SEPARATOR=$'\ue0cc'
+        ;;
+      lego)
+        SEGMENT_SEPARATOR=$'\ue0ce'
+        ;;
+      lego2)
+        SEGMENT_SEPARATOR=$'\ue0d1'
+        ;;
+      thingie)
+        SEGMENT_SEPARATOR=$'\ue0d2'
+        ;;
+      original)
+        SEGMENT_SEPARATOR=$POWERLINE_SEGMENT_SEPARATOR
+        ;;
+      *)
+        SEGMENT_SEPARATOR="?"
+        ;;
+    esac
+  fi
   PLUSMINUS=$'\u00b1'
   BRANCH=$'\ue0a0'
   DETACHED=$'\u27a6'
