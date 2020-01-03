@@ -52,7 +52,10 @@ Agnoster can be configured by setting these environment variables.
 
 * `$DEFAULT_USER` - A user name you typically log in as, and which should be omitted from the prompt display when you are that user.
 * `$AGNOSTER_PATH_STYLE` – `full`, `short`, or `shrink` – Controls how the current directory is displayed.
-* `$VIRTUAL_ENV_DISABLE_PROMPT` – set to any nonempty value to disable Python virtualenv/conda env display.
+* `$VIRTUAL_ENV_DISABLE_PROMPT` – Set this to any nonempty value to disable Python virtualenv/conda env display.
+* `$AGNOSTER_PROMPT_SEGMENTS` - List of segments to include in your prompt.
+
+
 ## Customizing your prompt
 
 By default, the prompt has these segments in this order:
