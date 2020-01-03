@@ -163,10 +163,10 @@ prompt_dir() {
     shrink)
       if which shrink_path >&/dev/null; then
         # Requires Oh My Zsh's shrink-path plugin or compatible
-        path_seg="$(shrink_path -f)"
+        path_seg=" $(shrink_path -f) "
         echo "path_seg = $path_seg" > ~/zsh-debug
       else
-        path_seg=' %1~ '
+        path_seg=$(print -P ' %~ ' | sed -E -e "s#([^a-z]*[a-z])[^/]*/#\1/#g")
       fi
       ;;
     full|*)
