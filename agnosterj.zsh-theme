@@ -373,8 +373,8 @@ prompt_gcp() {
 }
 
 
-# Fs: filesystem on which the current working directory lies
-prompt_fs() {
+# Filesystem: filesystem on which the current working directory lies
+prompt_filesystem() {
     local fs=$(df "$PWD" | tail -1 | awk '{print $1}')
     agnj_debug "fs is: $fs"
     prompt_segment magenta $AGNJ_COLOR_FG " $fs "

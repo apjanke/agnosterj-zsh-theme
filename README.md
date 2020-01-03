@@ -85,12 +85,21 @@ Agnoster can be configured by setting these environment variables.
 
 By default, the prompt has these segments in this order:
 - `prompt_status`
+- `prompt_git`
 - `prompt_context`
 - `prompt_virtualenv`
 - `prompt_dir`
-- `prompt_git`
 
 If you want to add, remove, or reorder some segments of the prompt, you can use the array environment variable named `AGNOSTER_PROMPT_SEGMENTS`. There are many prompt segments available that are not enabled by default. See the source code for options!
+
+Optional segments include:
+- `prompt_newline`
+- `prompt_k8s`
+- `prompt_aws`
+- `prompt_azure`
+- `prompt_gcp`
+- `prompt_filesystem`
+
 
 ### Examples
 
