@@ -46,6 +46,13 @@ If you get placeholder squares for the first and third characters, then you are 
 
 Download the files in this repo somewhere, and have your `~/.zshrc` `source` the `agnosterj.zsh-theme` file.
 
+# Configuration
+
+Agnoster can be configured by setting these environment variables.
+
+* `$DEFAULT_USER` - A user name you typically log in as, and which should be omitted from the prompt display when you are that user.
+* `$AGNOSTER_PATH_STYLE` – `full`, `short`, or `shrink` – Controls how the current directory is displayed.
+
 ## Customizing your prompt
 
 By default, the prompt has these segments in this order:
@@ -59,6 +66,7 @@ By default, the prompt has these segments in this order:
 If you want to add, remove, or reorder some segments of the prompt, you can use the array environment variable named `AGNOSTER_PROMPT_SEGMENTS`.
 
 ### Examples
+
 - Show all segments of the prompt with indices:
 ```
 echo "${(F)AGNOSTER_PROMPT_SEGMENTS[@]}" | cat -n
@@ -99,12 +107,6 @@ customize_agnoster() {
 }
 ```
 ![Customization demo](images/agnoster_customization.gif)
-
-# Configuration
-
-Agnoster can be configured by setting these environment variables.
-
-* `$DEFAULT_USER` - A user name you typically log in as, and which should be omitted from the prompt display when you are that user.
 
 # Future Work
 

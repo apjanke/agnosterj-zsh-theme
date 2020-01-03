@@ -25,6 +25,11 @@
 # jobs are running in this shell will all be displayed automatically when
 # appropriate.
 
+### User-configurable variables
+
+# 'full', 'short', or 'shrink'
+x=${AGNOSTER_PATH_STYLE:=full}
+
 ### Segments of the prompt, default order declaration
 
 typeset -aHg AGNOSTER_PROMPT_SEGMENTS=(
@@ -40,9 +45,7 @@ typeset -aHg AGNOSTER_PROMPT_SEGMENTS=(
 # A few utility functions to make it easy and re-usable to draw segmented prompts
 
 CURRENT_BG='NONE'
-if [[ -z "$PRIMARY_FG" ]]; then
-	PRIMARY_FG=black
-fi
+x=${PRIMARY_FG:=black}
 
 # Special Powerline characters
 
@@ -152,7 +155,25 @@ prompt_git() {
 
 # Dir: current working directory
 prompt_dir() {
-  prompt_segment blue $PRIMARY_FG ' %~ '
+  local path_seg
+  case "$AGNOSTER_PATH_STYLE" in
+    short)
+      path_seg=' %1~ '
+      ;;
+    shrink)
+      if which shrink_path >&/dev/null; then
+        # Requires Oh My Zsh's shrink-path plugin or compatible
+        path_seg="$(shrink_path -f)"
+        echo "path_seg = $path_seg" > ~/zsh-debug
+      else
+        path_seg=' %1~ '
+      fi
+      ;;
+    full|*)
+      path_seg=' %~ '
+      ;;
+  esac
+  prompt_segment blue $PRIMARY_FG "${path_seg}"
 }
 
 # Status:
