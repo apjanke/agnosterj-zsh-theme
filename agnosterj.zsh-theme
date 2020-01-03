@@ -340,7 +340,8 @@ prompt_vaulted() {
     fg=blue
   fi
   if [[ -n $VAULTED_ENV ]]; then
-    prompt_segment $bg $fg " ${VAULTED_ENV} "
+    local lock_icon=$'\ue0a2'
+    prompt_segment $bg $fg " ${lock_icon}${VAULTED_ENV} "
   fi
 }
 
