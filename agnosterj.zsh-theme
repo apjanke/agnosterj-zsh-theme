@@ -36,11 +36,11 @@ x=${AGNOSTER_THEME_VARIANT:=dark}
 
 typeset -aHg AGNOSTER_PROMPT_SEGMENTS=(
     prompt_status
+    prompt_git
     prompt_context
     prompt_virtualenv
     prompt_vaulted
     prompt_dir
-    prompt_git
     prompt_kubecontext
 )
 #    prompt_k8s
@@ -123,6 +123,15 @@ prompt_end() {
   fi
   print -n "%f"
   AGNJ_CURRENT_BG=''
+}
+
+prompt_newline() {
+  local SEGMENT_SEPARATOR BRANCH DETACHED PLUSMINUS CROSS LIGHTNING GEAR
+  define_prompt_chars
+  prompt_end
+  # TODO: Figure out how to make this a nicer color. Maybe take the last-used
+  # background color?
+  print -n "\n$SEGMENT_SEPARATOR"
 }
 
 ### Prompt components
