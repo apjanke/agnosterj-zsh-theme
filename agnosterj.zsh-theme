@@ -33,7 +33,6 @@ x=${AGNOSTER_PATH_STYLE:=full}
 x=${AGNOSTER_THEME_VARIANT:=dark}
 
 ### Segments of the prompt, default order declaration
-### TODO: This isn't actually being used!
 
 typeset -aHg AGNOSTER_PROMPT_SEGMENTS=(
     prompt_status
@@ -43,7 +42,6 @@ typeset -aHg AGNOSTER_PROMPT_SEGMENTS=(
     prompt_dir
     prompt_git
     prompt_kubecontext
-    prompt_end
 )
 
 ### Color setup
@@ -309,13 +307,10 @@ prompt_agnoster_main() {
     agnj_setup_colors
     AGNJ_LAST_THEME_VARIANT="$AGNOSTER_THEME_VARIANT"
   fi
-  prompt_status
-  prompt_context
-  prompt_virtualenv
-  prompt_vaulted
-  prompt_dir
-  prompt_git
-  prompt_kubecontext
+  local segment
+  for segment in $AGNOSTER_PROMPT_SEGMENTS; do
+    $segment
+  done
   prompt_end
 }
 
