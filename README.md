@@ -27,7 +27,7 @@ To test if your terminal and font support Powerline, check that all the necessar
 
 If you get placeholder squares for the first and third characters, then you are not correctly using a Powerline-patched font.
 
-## What does AgnosterJ show?
+# What does AgnosterJ show?
 
 - If the previous command failed (✘)
 - `user@hostname` (if user is not DEFAULT_USER, which can be set in your profile)
