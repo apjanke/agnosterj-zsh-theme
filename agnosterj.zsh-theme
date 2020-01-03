@@ -29,6 +29,8 @@
 
 # 'full', 'short', or 'shrink'
 x=${AGNOSTER_PATH_STYLE:=full}
+# 'light' or 'dark', for which version of Solarized you're using
+x=${AGNOSTER_THEME_VARIANT:=dark}
 
 ### Segments of the prompt, default order declaration
 ### TODO: This isn't actually being used!
@@ -44,11 +46,25 @@ typeset -aHg AGNOSTER_PROMPT_SEGMENTS=(
     prompt_end
 )
 
+### Color setup
+
+AGNJ_LAST_THEME_VARIANT=$AGNOSTER_THEME_VARIANT
+agnj_setup_colors() {
+  case "$AGNOSTER_THEME_VARIANT" in
+    light)
+      AGNJ_COLOR_BG=white
+      AGNJ_COLOR_FG=white
+      ;;
+    dark|*)
+      AGNJ_COLOR_BG=black
+      AGNJ_COLOR_FG=black
+      ;;
+  esac
+}
+AGNJ_CURRENT_BG='NONE'
+
 ### Segment drawing
 # A few utility functions to make it easy and re-usable to draw segmented prompts
-
-CURRENT_BG='NONE'
-x=${PRIMARY_FG:=black}
 
 # Special Powerline characters
 
@@ -85,12 +101,12 @@ prompt_segment() {
   define_prompt_chars
   [[ -n $1 ]] && bg="%K{$1}" || bg="%k"
   [[ -n $2 ]] && fg="%F{$2}" || fg="%f"
-  if [[ $CURRENT_BG != 'NONE' && $1 != $CURRENT_BG ]]; then
-    print -n "$bg%F{$CURRENT_BG}$SEGMENT_SEPARATOR$fg"
+  if [[ $AGNJ_CURRENT_BG != 'NONE' && $1 != $AGNJ_CURRENT_BG ]]; then
+    print -n "$bg%F{$AGNJ_CURRENT_BG}$SEGMENT_SEPARATOR$fg"
   else
     print -n "$bg$fg"
   fi
-  CURRENT_BG=$1
+  AGNJ_CURRENT_BG=$1
   [[ -n $3 ]] && print -n $3
 }
 
@@ -98,13 +114,13 @@ prompt_segment() {
 prompt_end() {
   local SEGMENT_SEPARATOR BRANCH DETACHED PLUSMINUS CROSS LIGHTNING GEAR
   define_prompt_chars
-  if [[ -n $CURRENT_BG ]]; then
-    print -n "%k%F{$CURRENT_BG}$SEGMENT_SEPARATOR"
+  if [[ -n $AGNJ_CURRENT_BG ]]; then
+    print -n "%k%F{$AGNJ_CURRENT_BG}$SEGMENT_SEPARATOR"
   else
     print -n "%k"
   fi
   print -n "%f"
-  CURRENT_BG=''
+  AGNJ_CURRENT_BG=''
 }
 
 ### Prompt components
@@ -116,13 +132,13 @@ prompt_context() {
 
   if [[ "$user" != "$DEFAULT_USER" ]]; then
     if [[ -n "$SSH_CONNECTION" ]]; then
-      prompt_segment $PRIMARY_FG default " %(!.%F{yellow}.)$user@%m "
+      prompt_segment $AGNJ_COLOR_FG default " %(!.%F{yellow}.)$user@%m "
     else
-      prompt_segment $PRIMARY_FG default " %(!.%F{yellow}.)$user@ "
+      prompt_segment $AGNJ_COLOR_FG default " %(!.%F{yellow}.)$user@ "
     fi
   else
     if [[ -n "$SSH_CONNECTION" ]]; then
-      prompt_segment $PRIMARY_FG default " @%m "
+      prompt_segment $AGNJ_COLOR_FG default " @%m "
     fi
   fi
 }
@@ -150,7 +166,7 @@ prompt_git() {
       ref="$DETACHED ${ref/.../}"
     fi
 
-    prompt_segment $color $PRIMARY_FG
+    prompt_segment $color $AGNJ_COLOR_FG
     print -Pn " $ref$mode"
   fi
 }
@@ -175,7 +191,7 @@ prompt_dir() {
       path_seg=' %~ '
       ;;
   esac
-  prompt_segment blue $PRIMARY_FG "${path_seg}"
+  prompt_segment blue $AGNJ_COLOR_FG "${path_seg}"
 }
 
 # Status:
@@ -191,7 +207,7 @@ prompt_status() {
   [[ $UID -eq 0 ]] && symbols+="%F{yellow}$LIGHTNING"
   [[ $(jobs -l | wc -l) -gt 0 ]] && symbols+="%F{cyan}$GEAR"
 
-  [[ -n "$symbols" ]] && prompt_segment $PRIMARY_FG default " $symbols "
+  [[ -n "$symbols" ]] && prompt_segment $AGNJ_COLOR_FG default " $symbols "
 }
 
 # Mercurial repo status
@@ -281,20 +297,28 @@ prompt_kubecontext() {
   fi
 
   if [[ -n $env ]]; then
-    prompt_segment magenta $PRIMARY_FG
+    prompt_segment magenta $AGNJ_COLOR_FG
     print -Pn " $env "
   fi
 }
 
 ## Main prompt
 prompt_agnoster_main() {
+  agnj_debug "agnoster_main running"
   RETVAL=$?
-  local CURRENT_BG='NONE'
+  local AGNJ_CURRENT_BG='NONE'
+  if [[ "$AGNOSTER_THEME_VARIANT" != "$AGNJ_LAST_THEME_VARIANT" ]]; then
+    agnj_setup_colors
+    AGNJ_LAST_THEME_VARIANT="$AGNOSTER_THEME_VARIANT"
+  fi
   prompt_status
+  agnj_debug "prompt_status ran"
   prompt_context
+  agnj_debug "prompt_context ran"
   prompt_virtualenv
   prompt_vaulted
   prompt_dir
+  agnj_debug "prompt_dir ran"
   prompt_git
   prompt_kubecontext
   prompt_end
@@ -309,8 +333,8 @@ prompt_agnoster_setup() {
   autoload -Uz vcs_info
 
   prompt_opts=(cr subst sp percent)
-  # Dunno if this is redundant, but let's do it to make sure.
-  setopt prompt_subst
+
+  agnj_setup_colors
 
   add-zsh-hook precmd prompt_agnoster_precmd
 
@@ -324,6 +348,10 @@ prompt_agnoster_setup() {
 
   setopt prompt_subst
   PROMPT='%f%b%k$(prompt_agnoster_main) '
+}
+
+agnj_debug() {
+  echo "$*" >> ~/agnoster-debug.log
 }
 
 prompt_agnoster_setup "$@"
