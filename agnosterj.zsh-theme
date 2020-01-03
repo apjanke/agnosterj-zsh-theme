@@ -32,21 +32,10 @@ x=${AGNOSTER_PATH_STYLE:=full}
 # 'light' or 'dark', for which version of Solarized you're using
 x=${AGNOSTER_THEME_VARIANT:=dark}
 
-### Segments of the prompt, default order declaration
+### Segments of the prompt
+# See bottom of script for default value
 
-typeset -aHg AGNOSTER_PROMPT_SEGMENTS=(
-    prompt_status
-    prompt_git
-    prompt_context
-    prompt_virtualenv
-    prompt_vaulted
-    prompt_dir
-    prompt_kubecontext
-)
-#    prompt_k8s
-#    prompt_aws
-#    prompt_azure
-#    prompt_gcp
+typeset -aHg AGNOSTER_PROMPT_SEGMENTS
 
 ### Color setup
 
@@ -404,6 +393,18 @@ prompt_agnoster_setup() {
   autoload -Uz vcs_info
 
   prompt_opts=(cr subst sp percent)
+
+  if [[ -z "$AGNOSTER_PROMPT_SEGMENTS" ]]; then
+    AGNOSTER_PROMPT_SEGMENTS=(
+      prompt_status
+      prompt_git
+      prompt_context
+      prompt_virtualenv
+      prompt_vaulted
+      prompt_dir
+      prompt_kubecontext
+    )
+  fi
 
   agnj_setup_colors
 
