@@ -426,4 +426,21 @@ agnj_debug() {
   echo "$*" >> ~/agnoster-debug.log
 }
 
+agnoster_setopt() {
+  local optvars=(
+    AGNOSTER_PROMPT_SEGMENTS
+    AGNOSTER_PATH_STYLE
+    AGNOSTER_CONTEXT_FG
+    AGNOSTER_CONTEXT_BG
+    VIRTUAL_ENV_DISABLE_PROMPT
+    DEFAULT_USER
+  )
+  local varname
+  for varname in $optvars; do
+    if [[ -n "${(P)varname}" ]]; then
+      echo "${varname} = ${(P)varname}"
+    fi
+  done
+}
+
 prompt_agnoster_setup "$@"

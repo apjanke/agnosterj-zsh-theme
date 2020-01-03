@@ -80,6 +80,7 @@ Agnoster can be configured by setting these environment variables.
 * `$AGNOSTER_PROMPT_SEGMENTS` - List of segments to include in your prompt.
 * `$AGNOSTER_CONTEXT_FG`, `$AGNOSTER_CONTEXT_BG` – Override colors for the user/host context segment. Useful if you want to set this on a per-host basis.
 
+You can call the `agnoster_setopt` function to see what all the current variables affecting AgnosterJ are set to.
 
 ## Customizing your prompt
 
