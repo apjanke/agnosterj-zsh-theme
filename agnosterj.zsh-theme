@@ -28,9 +28,16 @@
 ### User-configurable variables
 
 # 'full', 'short', or 'shrink'
-x=${AGNOSTER_PATH_STYLE:=full}
+: ${AGNOSTER_PATH_STYLE:=full}
 # 'light' or 'dark', for which version of Solarized you're using
-x=${AGNOSTER_THEME_VARIANT:=dark}
+: ${AGNOSTER_THEME_VARIANT:=dark}
+# The emoji to draw from for prompt_random_emoji
+if [[ -z "$AGNOSTER_RANDOM_EMOJI" ]]; then
+  AGNOSTER_RANDOM_EMOJI=(🔥 💀 👑 😎 🐸 🐵 🦄 🌈 🍻 🚀 💡 \
+    🎉 🔑 🇹🇭 🚦 🌙)
+fi
+# Whether to change the random emoji each time the prompt is displayed
+AGNOSTER_RANDOM_EMOJI_EACH_PROMPT=0
 
 ### Segments of the prompt
 # See bottom of script for default value
@@ -418,6 +425,17 @@ prompt_filesystem() {
     prompt_segment magenta $AGNJ_COLOR_FG " $fs "
 }
 
+prompt_random_emoji() {
+  local n my_emoji
+  if [[ -n "$AGNOSTER_FIXED_RANDOM_EMOJI" ]]; then
+    my_emoji="$AGNOSTER_FIXED_RANDOM_EMOJI"
+  else
+    n=$(( $RANDOM % ${#AGNOSTER_RANDOM_EMOJI[@]} + 1 ))
+    my_emoji="${AGNOSTER_RANDOM_EMOJI[$n]}"
+  fi
+  prompt_segment black default "$my_emoji "
+}
+
 ## Main prompt
 prompt_agnoster_main() {
   RETVAL=$?
@@ -435,6 +453,21 @@ prompt_agnoster_main() {
 
 prompt_agnoster_precmd() {
   vcs_info
+  if [[ ${AGNOSTER_PROMPT_SEGMENTS[(ie)prompt_random_emoji]} -le ${#AGNOSTER_PROMPT_SEGMENTS} ]]; then
+    if [[ $AGNOSTER_RANDOM_EMOJI_EACH_PROMPT = 1 ]]; then
+      AGNOSTER_FIXED_RANDOM_EMOJI=""
+      # We need to bump $RANDOM here because prompt_agnoster_main runs in a subshell
+      # and inherits the random seed state without propagating its advancing of it to
+      # the parent shell
+      : $RANDOM
+    else
+      if [[ -z "$AGNOSTER_FIXED_RANDOM_EMOJI" ]]; then
+        local n
+        n=$(( $RANDOM % ${#AGNOSTER_RANDOM_EMOJI[@]} + 1 ))
+        AGNOSTER_FIXED_RANDOM_EMOJI="${AGNOSTER_RANDOM_EMOJI[$n]}"
+      fi
+    fi
+  fi
 }
 
 prompt_agnoster_setup() {
@@ -481,6 +514,8 @@ agnoster_setopt() {
     AGNOSTER_PATH_STYLE
     AGNOSTER_CONTEXT_FG
     AGNOSTER_CONTEXT_BG
+    AGNOSTER_RANDOM_EMOJI
+    AGNOSTER_RANDOM_EMOJI_EACH_PROMPT
     VIRTUAL_ENV_DISABLE_PROMPT
     DEFAULT_USER
   )

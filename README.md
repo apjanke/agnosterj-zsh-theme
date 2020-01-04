@@ -81,6 +81,8 @@ Agnoster can be configured by setting these environment variables.
   * Options: `original`, `curvy`, `angly`, `angly-up`, `flame`, `littleboxes`, `boxes`, `fade`, `hexes`, `lego`, `lego2`, `thingie`
 * `$DEFAULT_USER` - A user name you typically log in as, and which should be omitted from the prompt display when you are that user.
 * `$VIRTUAL_ENV_DISABLE_PROMPT` – Set this to any nonempty value to disable Python virtualenv/conda env display.
+* `$AGNOSTER_RANDOM_EMOJI_EACH_PROMPT` – Whether the `prompt_random_emoji` segment should use a different emoji each time a prompt is displayed (1) or keep the same emoji for the duration of a shell session (0).
+* `$AGNOSTER_RANDOM_EMOJI` – The list of emoji characters that `prompt_random_emoji` will draw from.
 
 You can call the `agnoster_setopt` function to see what all the current variables affecting AgnosterJ are set to.
 
@@ -102,6 +104,7 @@ Optional segments include:
 - `prompt_azure`
 - `prompt_gcp`
 - `prompt_filesystem`
+- `prompt_random_emoji`
 
 
 ### Examples
