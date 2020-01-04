@@ -1,7 +1,5 @@
 # AgnosterJ
 
-AgnosterJ is [apjanke](https://github.com/apjanke)'s fork of [agnoster](https://github.com/agnoster)'s Agnoster Zsh Theme.
-
 This is a Zsh theme optimized for people who use:
 
 - The [Solarized](https://ethanschoonover.com/solarized/) color scheme
@@ -9,6 +7,8 @@ This is a Zsh theme optimized for people who use:
 - Unicode-compatible fonts and terminals
 
 For Mac users, I highly recommend iTerm2 + Solarized Dark.
+
+AgnosterJ is [apjanke](https://github.com/apjanke)'s fork of [agnoster](https://github.com/agnoster)'s Agnoster Zsh Theme. Development on the original Agnoster seems to have stalled as of about 2018, so I decided to make a fork and pull in pending PRs from over there, and add some of my own enhancements.
 
 # Requirements
 
@@ -147,10 +147,20 @@ customize_agnoster() {
 
 # Future Work
 
-It’s currently hideously slow, especially inside a git repo. I guess it's not overly so for comparable themes, but it bugs me, and I‘’ love to hear ideas about how to improve the performance.
+It’s currently hideously slow, especially inside a git repo. I guess it's not overly so for comparable themes, but it bugs me, and I‘d love to hear ideas about how to improve the performance.
 
 The dependency on a powerline-patched font is regrettable, but there’s really no way to get that effect without it. Ideally there would be a way to check for compatibility, or maybe even fall back to one of the similar unicode glyphs. At least nowadays iTerm2 has Powerline icon support built in.
 
 # License
 
-AgnosterJ does not currently have a license. This is because the upstream Agnoster Zsh Theme [does not have a license](https://github.com/agnoster/agnoster-zsh-theme/issues/42). But the intent for it is to be open source! Once Agnoster itself has chosen a license, I’ll adopt the same one.
+The AgnosterJ licensing situation is a little unclear. This is because the upstream Agnoster Zsh Theme [does not have a license](https://github.com/agnoster/agnoster-zsh-theme/issues/42). But it’s clearly meant for public consumption, so I’m assuming that making this fork is fine, and it's okay to redistribute that code.
+
+The AgnosterJ additions to Agnoster are licensed under the [MIT License](https://opensource.org/licenses/MIT).
+
+If Agnoster gets around to choosing a particular open source license, I will add dual-licensing to AgnosterJ so it is covered under that license as well.
+
+# Author
+
+[Agnoster](https://github.com/agnoster/agnoster-zsh-theme) was originally written by Isaac Wolkerstorfer ([agnoster](https://github.com/agnoster) on GitHub). Thanks to Isaac for writing this neat tool!
+
+The AgnosterJ fork is maintained by [Andrew Janke](https://apjanke.net) ([apjanke](https://github.com/apjanke) on GitHub).
