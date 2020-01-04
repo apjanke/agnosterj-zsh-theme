@@ -116,7 +116,7 @@ AGNOSTER_PROMPT_SEGMENTS=("prompt_aws" "${AGNOSTER_PROMPT_SEGMENTS[@]}")
 ```
 - Add a new segment to the end:
 ```
-AGNOSTER_PROMPT_SEGMENTS+="prompt_end"
+AGNOSTER_PROMPT_SEGMENTS+="prompt_aws"
 ```
 - Insert a new segment `$segment_name` in the particular position `$segment_position`:
 ```
