@@ -25,6 +25,8 @@
 # jobs are running in this shell will all be displayed automatically when
 # appropriate.
 
+AGNOSTER_VERSION=2.0.0-prerelease
+typeset -r AGNOSTER_VERSION
 typeset -Ah AGNOSTER_DEFAULT_OPTS
 AGNOSTER_DEFAULT_OPTS=(
   AGNOSTER_THEME_VARIANT dark
@@ -631,6 +633,7 @@ agnoster_remove_segment() {
 }
 
 agnoster_setopt() {
+  # Do not display DEFAULT_USER; some people might consider that a privacy issue
   local optvars=(
     AGNOSTER_PROMPT_SEGMENTS
     AGNOSTER_PATH_STYLE
@@ -642,8 +645,8 @@ agnoster_setopt() {
     AGNOSTER_RANDOM_EMOJI_REALLY_RANDOM
     VIRTUAL_ENV_DISABLE_PROMPT
   )
-  # Do not display DEFAULT_USER; some people might consider that a privacy issue
   local varname default val
+  echo "AgnosterJ version $AGNOSTER_VERSION"
   for varname in $optvars; do
     if [[ -n "${(P)varname}" ]]; then
       default="${AGNOSTER_DEFAULT_OPTS[$varname]}";
