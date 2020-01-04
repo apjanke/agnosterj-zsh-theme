@@ -271,7 +271,7 @@ prompt_status() {
   symbols=()
   [[ $RETVAL -ne 0 ]] && symbols+="%F{red}$CROSS"
   [[ $UID -eq 0 ]] && symbols+="%F{yellow}$LIGHTNING"
-  [[ $(jobs -l | wc -l) -gt 0 ]] && symbols+="%F{cyan}$GEAR"
+  [[ $(jobs -l | sed '/nohup/d' | wc -l) -gt 0 ]] && symbols+="%F{cyan}$GEAR"
 
   [[ -n "$symbols" ]] && prompt_segment $AGNJ_COLOR_FG default " $symbols "
 }
