@@ -99,22 +99,22 @@ You can call the `agnoster_setopt` function to see what all the current variable
 ## Customizing your prompt
 
 By default, the prompt has these segments in this order:
-- `prompt_status`
-- `prompt_git`
-- `prompt_context`
-- `prompt_virtualenv`
-- `prompt_dir`
+- `status`
+- `git`
+- `context`
+- `virtualenv`
+- `dir`
 
 If you want to add, remove, or reorder some segments of the prompt, you can use the array environment variable named `AGNOSTER_PROMPT_SEGMENTS`. There are many prompt segments available that are not enabled by default. See the source code for options!
 
 Optional segments include:
-- `prompt_newline`
-- `prompt_k8s`
-- `prompt_aws`
-- `prompt_azure`
-- `prompt_gcp`
-- `prompt_filesystem`
-- `prompt_random_emoji`
+- `newline`
+- `k8s`
+- `aws`
+- `azure`
+- `gcp`
+- `filesystem`
+- `random_emoji`
 
 
 ### Examples
@@ -125,17 +125,17 @@ echo "${(F)AGNOSTER_PROMPT_SEGMENTS[@]}" | cat -n
 ```
 - Add a new segment to the beginning:
 ```
-AGNOSTER_PROMPT_SEGMENTS=("prompt_aws" "${AGNOSTER_PROMPT_SEGMENTS[@]}")
+AGNOSTER_PROMPT_SEGMENTS=("aws" "${AGNOSTER_PROMPT_SEGMENTS[@]}")
 ```
 - Add a new segment to the end:
 ```
-AGNOSTER_PROMPT_SEGMENTS+="prompt_aws"
+AGNOSTER_PROMPT_SEGMENTS+="aws"
 ```
 - Insert a new segment `$segment_name` in the particular position `$segment_position`:
 ```
 {
   local segment_position=5
-  local segment_name="prompt_aws"
+  local segment_name="aws"
   AGNOSTER_PROMPT_SEGMENTS=("${AGNOSTER_PROMPT_SEGMENTS[@]:0:$segment_position-1}" "$segment_name" "${AGNOSTER_PROMPT_SEGMENTS[@]:$segment_position-1}");\
 }
 ```

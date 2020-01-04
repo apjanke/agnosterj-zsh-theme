@@ -32,7 +32,7 @@ AGNOSTER_DEFAULT_OPTS=(
   AGNOSTER_RANDOM_EMOJI 🔥💀👑😎😜🤡🤖🥳👍😈👹🧠👖🍆🏋️‍♂️🐸🐵🦄🌈🍻🚀💡🎉🔑🇹🇭🚦🌙🛌🛎️
   AGNOSTER_RANDOM_EMOJI_EACH_PROMPT 0
   AGNOSTER_RANDOM_EMOJI_REALLY_RANDOM 1
-  AGNOSTER_PROMPT_SEGMENTS "prompt_status prompt_git prompt_context prompt_virtualenv prompt_vaulted prompt_dir prompt_kubecontext"
+  AGNOSTER_PROMPT_SEGMENTS "status git context virtualenv vaulted dir kubecontext"
 )
 
 ### User-configurable variables
@@ -486,7 +486,13 @@ prompt_agnoster_main() {
   fi
   local segment
   for segment in $AGNOSTER_PROMPT_SEGMENTS; do
-    $segment
+    if [[ $segment == 'prompt_'* ]]; then
+      # Back-compatibility shim
+      segment_fcn=$segment
+    else
+      segment_fcn="prompt_${segment}"
+    fi
+    $segment_fcn
   done
   prompt_end
 }
