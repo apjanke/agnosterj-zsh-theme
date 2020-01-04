@@ -276,13 +276,18 @@ prompt_dir() {
 prompt_status() {
   local SEGMENT_SEPARATOR BRANCH DETACHED PLUSMINUS CROSS LIGHTNING GEAR
   define_prompt_chars
-  local symbols
-  symbols=()
-  [[ $RETVAL -ne 0 ]] && symbols+="%F{red}$CROSS"
-  [[ $UID -eq 0 ]] && symbols+="%F{yellow}$LIGHTNING"
-  [[ $(jobs -l | sed '/nohup/d' | wc -l) -gt 0 ]] && symbols+="%F{cyan}$GEAR"
+  local str=""
+  str=""
+  if [[ $RETVAL -ne 0 ]]; then
+    str+="%F{red}$CROSS"
+    if [[ $AGNOSTER_DISPLAY_EXIT_STATUS == 1 ]]; then
+      str+="$RETVAL"
+    fi
+  fi
+  [[ $UID -eq 0 ]] && str+="%F{yellow}$LIGHTNING"
+  [[ $(jobs -l | sed '/nohup/d' | wc -l) -gt 0 ]] && str+="%F{cyan}$GEAR"
 
-  [[ -n "$symbols" ]] && prompt_segment $AGNJ_COLOR_FG default " $symbols "
+  [[ -n "$str" ]] && prompt_segment $AGNJ_COLOR_FG default " $str "
 }
 
 # Mercurial repo status
@@ -548,6 +553,7 @@ agnoster_setopt() {
   local optvars=(
     AGNOSTER_PROMPT_SEGMENTS
     AGNOSTER_PATH_STYLE
+    AGNOSTER_DISPLAY_EXIT_STATUS
     AGNOSTER_CONTEXT_FG
     AGNOSTER_CONTEXT_BG
     AGNOSTER_RANDOM_EMOJI
