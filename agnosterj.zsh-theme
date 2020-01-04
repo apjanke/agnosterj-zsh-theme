@@ -454,7 +454,8 @@ agnj_pick_random_emoji() {
       offset=$(( $RANDOM % $range_size ))
       codepoint=$(( $base + $offset ))
       hexcode=$(printf '%X' $codepoint)
-      if [[ ${AGNOSTER_KNOWN_BAD_EMOJI_CODEPOINTS[(ie)$hexcode]} -gt ${#AGNOSTER_KNOWN_BAD_EMOJI_CODEPOINTS} ]]; then
+      if [[ ${AGNOSTER_KNOWN_BAD_EMOJI_CODEPOINTS[(ie)$hexcode]} \
+             -gt ${#AGNOSTER_KNOWN_BAD_EMOJI_CODEPOINTS} ]]; then
         my_emoji="${(#)codepoint}"
       fi
     done
