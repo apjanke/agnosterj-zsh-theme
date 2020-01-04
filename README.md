@@ -79,7 +79,7 @@ source $ZSH/oh-my-zsh.zsh
 
 # Configuration
 
-Agnoster can be configured by setting these environment variables.
+AgnosterJ can be configured by setting these environment variables.
 
 * `$AGNOSTER_PROMPT_SEGMENTS` - List of segments to include in your prompt.
 * `$AGNOSTER_PATH_STYLE` – `full`, `short`, or `shrink` – Controls how the current directory is displayed.
