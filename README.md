@@ -25,7 +25,7 @@ If you are using iTerm2, then Powerline support is built in. To enable it, find 
 
 To test if your terminal and font support Powerline, check that all the necessary characters are supported by copying the following command to your terminal: `echo "\ue0b0 \u00b1 \ue0a0 \u27a6 \u2718 \u26a1 \u2699"`. The result should look like this:
 
-![Character Example](images/characters.png)
+![Character Example](doc/images/characters.png)
 
 If you get placeholder squares for the first and third characters, then you are not correctly using a Powerline-patched font.
 
@@ -34,7 +34,7 @@ If you get placeholder squares for the first and third characters, then you are 
 - If the previous command failed (✘)
 - `user@hostname` (if user is not DEFAULT_USER, which can be set in your profile)
 - Git status
-  - Branch (![Branch Character](images/branch.png)) or detached head (➦)
+  - Branch (![Branch Character](doc/images/branch.png)) or detached head (➦)
   - Current branch/SHA1 when in detached head state
   - Dirty working directory (±, color change)
 - Working directory
@@ -44,7 +44,7 @@ If you get placeholder squares for the first and third characters, then you are 
 
 ## Example
 
-![Screenshot](images/screenshot.png)
+![Screenshot](doc/images/screenshot.png)
 
 # Installation
 
@@ -156,7 +156,7 @@ customize_agnoster() {
   prompt_segment 'red' '' ' ⚙ ⚡⚡⚡ ⚙  '
 }
 ```
-![Customization demo](images/agnoster_customization.gif)
+![Customization demo](doc/images/agnoster_customization.gif)
 
 # Future Work
 
