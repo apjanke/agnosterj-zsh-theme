@@ -36,7 +36,7 @@ if [[ -z "$AGNOSTER_RANDOM_EMOJI" ]]; then
   AGNOSTER_RANDOM_EMOJI=🔥💀👑😎😜🤡🤖🥳👍😈👹🧠👖🍆🏋️‍♂️🐸🐵🦄🌈🍻🚀💡🎉🔑🇹🇭🚦🌙
 fi
 # Whether to change the random emoji each time the prompt is displayed
-AGNOSTER_RANDOM_EMOJI_EACH_PROMPT=0
+: ${AGNOSTER_RANDOM_EMOJI_EACH_PROMPT:=0}
 
 ### Segments of the prompt
 # See bottom of script for default value
@@ -424,13 +424,43 @@ prompt_filesystem() {
     prompt_segment magenta $AGNJ_COLOR_FG " $fs "
 }
 
+AGNOSTER_KNOWN_BAD_EMOJI_CODEPOINTS=(1F322 1F322 1F394 1F395 1F398 1F39C 1F39D 
+  1F3F1 1F3F2 1F3F6 1F4FE 
+  1F93B 1F946 1F971 1F972 1F977 1F978 1F979)
+agnj_pick_random_emoji() {
+  local n block_num base range_end range_size offset codepoint hexcode char
+  local block_bases block_ends my_emoji
+  if [[ "$AGNOSTER_RANDOM_EMOJI_REALLY_RANDOM" = 1 ]]; then
+    while [[ -z "$my_emoji" ]]; do
+      # TODO: Weight each block according to its size
+      block_bases=(0x1f300 0x1f5fa 0x1f910)
+      block_ends=( 0x1f53d 0x1f6c5 0x1f9a2)
+      block_num=$(( ${#block_bases[@]} % 3 + 1 ))
+      base=${block_bases[$block_num]}
+      base=$(printf '%d' $base)
+      range_end=${block_ends[$block_num]}
+      range_end=$(printf '%d' $range_end)
+      range_size=$(( range_end - base + 1))
+      offset=$(( $RANDOM % $range_size ))
+      codepoint=$(( $base + $offset ))
+      hexcode=$(printf '%X' $codepoint)
+      if [[ ${AGNOSTER_KNOWN_BAD_EMOJI_CODEPOINTS[(ie)$hexcode]} -gt ${#AGNOSTER_KNOWN_BAD_EMOJI_CODEPOINTS} ]]; then
+        my_emoji="${(#)codepoint}"
+      fi
+    done
+  else
+    n=$(( $RANDOM % ${#AGNOSTER_RANDOM_EMOJI[@]} + 1 ))
+    my_emoji="${AGNOSTER_RANDOM_EMOJI[$n]}"
+  fi
+  echo "$my_emoji"
+}
+
 prompt_random_emoji() {
   local n my_emoji
   if [[ -n "$AGNOSTER_FIXED_RANDOM_EMOJI" ]]; then
     my_emoji="$AGNOSTER_FIXED_RANDOM_EMOJI"
   else
-    n=$(( $RANDOM % ${#AGNOSTER_RANDOM_EMOJI[@]} + 1 ))
-    my_emoji="${AGNOSTER_RANDOM_EMOJI[$n]}"
+    my_emoji=$(agnj_pick_random_emoji)
   fi
   prompt_segment black default "$my_emoji "
 }
@@ -461,9 +491,7 @@ prompt_agnoster_precmd() {
       : $RANDOM
     else
       if [[ -z "$AGNOSTER_FIXED_RANDOM_EMOJI" ]]; then
-        local n
-        n=$(( $RANDOM % ${#AGNOSTER_RANDOM_EMOJI[@]} + 1 ))
-        AGNOSTER_FIXED_RANDOM_EMOJI="${AGNOSTER_RANDOM_EMOJI[$n]}"
+        AGNOSTER_FIXED_RANDOM_EMOJI=$(agnj_pick_random_emoji)
       fi
     fi
   fi
@@ -515,6 +543,7 @@ agnoster_setopt() {
     AGNOSTER_CONTEXT_BG
     AGNOSTER_RANDOM_EMOJI
     AGNOSTER_RANDOM_EMOJI_EACH_PROMPT
+    AGNOSTER_RANDOM_EMOJI_REALLY_RANDOM
     VIRTUAL_ENV_DISABLE_PROMPT
     DEFAULT_USER
   )
