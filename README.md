@@ -10,6 +10,8 @@ For Mac users, I highly recommend iTerm2 + Solarized Dark.
 
 AgnosterJ is [apjanke](https://github.com/apjanke)'s fork of [agnoster](https://github.com/agnoster)'s Agnoster Zsh Theme. Development on the original Agnoster seems to have stalled as of about 2018, so I decided to make a fork and pull in pending PRs from over there, and add some of my own enhancements.
 
+The original Agnoster Theme, while not minimal, tried to stay small, supporting just the most common features. AgnosterJ is more expansive, providing additional prompt segment types, more customizability, and some silly stuff thrown in.
+
 # Requirements
 
 * Zsh (I'm not sure what the minimum version is)
