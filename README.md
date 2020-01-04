@@ -38,6 +38,7 @@ If you get placeholder squares for the first and third characters, then you are 
 - Working directory
 - Elevated (root) privileges (⚡)
 - Whether background jobs are running (⚙)
+- Other fun stuff!
 
 ## Example
 
