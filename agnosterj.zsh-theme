@@ -1,20 +1,20 @@
 # vim:ft=zsh ts=2 sw=2 sts=2
 #
-# agnoster's Theme - https://github.com/agnoster/agnoster-zsh-theme
+# AgnosterJ Theme - https://github.com/apjanke/agnosterj-zsh-theme
+#
 # A Powerline-inspired theme for ZSH
+# Based on the original Agnoster Theme - https://github.com/agnoster/agnoster-zsh-theme
 #
 # # README
 #
-# In order for this theme to render correctly, you will need a
+# In order for this theme to render correctly, you will need iTerm2 or a
 # [Powerline-patched font](https://gist.github.com/1595572).
-# Make sure you have a recent version: the code points that Powerline
-# uses changed in 2012, and older versions will display incorrectly,
-# in confusing ways.
 #
 # In addition, I recommend the
 # [Solarized theme](https://github.com/altercation/solarized/) and, if you're
-# using it on Mac OS X, [iTerm 2](http://www.iterm2.com/) over Terminal.app -
-# it has significantly better color fidelity.
+# using it on macOS, [iTerm 2](http://www.iterm2.com/) over Terminal.app -
+# it has significantly better color fidelity, and built-in support for
+# Powerline symbols!
 #
 # # Goals
 #
