@@ -106,7 +106,9 @@ By default, the prompt has these segments in this order:
 - `virtualenv`
 - `dir`
 
-If you want to add, remove, or reorder some segments of the prompt, you can use the array environment variable named `AGNOSTER_PROMPT_SEGMENTS`. There are many prompt segments available that are not enabled by default. See the source code for options!
+If you want to add, remove, or reorder some segments of the prompt, you can use the array environment variable named `AGNOSTER_PROMPT_SEGMENTS`. There are also `agnoster_add_segment` and `agnoster_remove_segment` functions to help you do this.
+
+There are many prompt segments available that are not enabled by default. See the source code for options!
 
 Optional segments include:
 - `newline`
@@ -124,31 +126,31 @@ Optional segments include:
 ```
 echo "${(F)AGNOSTER_PROMPT_SEGMENTS[@]}" | cat -n
 ```
-- Add a new segment to the beginning:
-```
-AGNOSTER_PROMPT_SEGMENTS=("aws" "${AGNOSTER_PROMPT_SEGMENTS[@]}")
-```
 - Add a new segment to the end:
 ```
-AGNOSTER_PROMPT_SEGMENTS+="aws"
+agnoster_add_segment aws
 ```
-- Insert a new segment `$segment_name` in the particular position `$segment_position`:
+- Add a segment or segments to the beginning or other position:
 ```
-{
-  local segment_position=5
-  local segment_name="aws"
-  AGNOSTER_PROMPT_SEGMENTS=("${AGNOSTER_PROMPT_SEGMENTS[@]:0:$segment_position-1}" "$segment_name" "${AGNOSTER_PROMPT_SEGMENTS[@]:$segment_position-1}");\
-}
+agnoster_add_segment 1 aws
+agnoster_add_segment 5 aws
+agnoster_add_segment 5 aws gcp azure
 ```
-- Remove the 5th segment:
+- Remove segments:
 ```
-AGNOSTER_PROMPT_SEGMENTS[5]=
+agnoster_remove_segment 5
+agnoster_remove_segment aws gcp azure
+```
+- Show prompt segments and other AgnosterJ options:
+```
+agnoster_setopt
 ```
 
 A small demo of a dummy custom prompt segment, which has been created with help of the `prompt_segment()` function from AgnosterJ:
 ```
 # prompt_segment() - Takes two arguments, background and foreground.
-# Both can be omitted, rendering default background/foreground.
+# Both can be omitted (by passing an empty argument), rendering 
+# default background/foreground.
 
 customize_agnoster() {
   prompt_segment 'red' '' ' ⚙ ⚡⚡⚡ ⚙  '

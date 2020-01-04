@@ -34,6 +34,24 @@ AGNOSTER_DEFAULT_OPTS=(
   AGNOSTER_RANDOM_EMOJI_REALLY_RANDOM 1
   AGNOSTER_PROMPT_SEGMENTS "status git context virtualenv vaulted dir kubecontext"
 )
+typeset -ah AGNOSTER_KNOWN_SEGMENT_NAMES
+AGNOSTER_KNOWN_SEGMENT_NAMES=(
+  aws
+  azure
+  context
+  dir
+  filesystem
+  gcp
+  git
+  hg
+  k8s
+  kubecontext
+  newline
+  random_emoji
+  status
+  vaulted
+  virtualenv
+)
 
 ### User-configurable variables
 
@@ -547,9 +565,9 @@ prompt_agnoster_setup() {
 
 agnj_array_contains() {
   local array_name="$1"
-  local value="$2"
+  local needle_value="$2"
   local arr=(${(P)array_name})
-  if [[ ${arr[(ie)$value]} -le ${#arr} ]]; then
+  if [[ ${arr[(ie)$needle_value]} -le ${#arr} ]]; then
     return 0
   else
     return 3
@@ -558,6 +576,58 @@ agnj_array_contains() {
 
 agnj_debug() {
   echo "$*" >> ~/agnoster-debug.log
+}
+
+# Usage:
+#   agnoster_add_segment [<insertion_index>] <name> ...
+# Numeric arguments are interpreted as the insertion index.
+# Non-numeric arguments are treatd as segment names.
+agnoster_add_segment() {
+  local ix
+  local segs=()
+  for arg in $@; do
+    if [[ "$arg" = <-> ]]; then
+      # Numeric arg is the insertion point
+      ix=$arg
+    else
+      if ! agnj_array_contains AGNOSTER_KNOWN_SEGMENT_NAMES "$arg"; then
+        echo >&2 "agnoster: error: unknown segment: $arg"
+        return 1;
+      fi
+      # Reverse their order so we can repeatedly insert at same ix
+      segs=($arg $segs)
+    fi
+  done
+  if [[ $ix == "" ]]; then
+    ix=$(( ${#AGNOSTER_PROMPT_SEGMENTS} + 1 ))
+  fi
+  for seg in $segs; do
+    AGNOSTER_PROMPT_SEGMENTS=("${AGNOSTER_PROMPT_SEGMENTS[@]:0:$ix-1}" \
+      "$seg" "${AGNOSTER_PROMPT_SEGMENTS[@]:$ix-1}");
+  done
+}
+
+# Usage:
+#   agnoster_remove_segment (<name>|<index>) ...
+agnoster_remove_segment() {
+  # Convert all args to names first, so we don't have to worry about
+  # indexes shifting as we remove segments
+  local segs=()
+  for arg in $@; do
+    if [[ "$arg" = <-> ]]; then
+      segs+=${AGNOSTER_PROMPT_SEGMENTS[$arg]}
+    else
+      if ! agnj_array_contains AGNOSTER_PROMPT_SEGMENTS "$arg"; then
+        echo >&2 "agnoster: warning: segment is not present: $arg"
+      else
+        segs+=$arg
+      fi
+    fi
+  done
+  for seg in $segs; do
+    local ix=${AGNOSTER_PROMPT_SEGMENTS[(ie)$seg]}
+    AGNOSTER_PROMPT_SEGMENTS[$ix]=
+  done
 }
 
 agnoster_setopt() {
