@@ -224,9 +224,9 @@ prompt_git() {
       ref="${ref} "
     fi
     ahead=$(git rev-list ${hook_com[branch]}@{upstream}..HEAD 2>/dev/null | wc -l)
-    (( $ahead )) && ref="${ref}⬆"
+    (( $ahead )) && ref="${ref}⬆ "
     behind=$(git rev-list HEAD..${hook_com[branch]}@{upstream} 2>/dev/null | wc -l)
-    (( $behind )) && ref="${ref}⬇"
+    (( $behind )) && ref="${ref}⬇ "
     if [[ "${ref/.../}" == "$ref" ]]; then
       ref="$BRANCH $ref"
     else
