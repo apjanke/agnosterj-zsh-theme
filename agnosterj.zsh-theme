@@ -33,7 +33,7 @@
 : ${AGNOSTER_THEME_VARIANT:=dark}
 # The emoji to draw from for prompt_random_emoji
 if [[ -z "$AGNOSTER_RANDOM_EMOJI" ]]; then
-  AGNOSTER_RANDOM_EMOJI=🔥💀👑😎😜🤡🤖🥳👍😈👹🧠👖🍆🏋️‍♂️🐸🐵🦄🌈🍻🚀💡🎉🔑🇹🇭🚦🌙
+  AGNOSTER_RANDOM_EMOJI=🔥💀👑😎😜🤡🤖🥳👍😈👹🧠👖🍆🏋️‍♂️🐸🐵🦄🌈🍻🚀💡🎉🔑🇹🇭🚦🌙🛌🛎️
 fi
 # Whether to change the random emoji each time the prompt is displayed
 : ${AGNOSTER_RANDOM_EMOJI_EACH_PROMPT:=0}
