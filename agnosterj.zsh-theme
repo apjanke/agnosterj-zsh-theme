@@ -25,23 +25,33 @@
 # jobs are running in this shell will all be displayed automatically when
 # appropriate.
 
+typeset -Ah AGNOSTER_DEFAULT_OPTS
+AGNOSTER_DEFAULT_OPTS=(
+  AGNOSTER_THEME_VARIANT dark
+  AGNOSTER_PATH_STYLE full
+  AGNOSTER_RANDOM_EMOJI 🔥💀👑😎😜🤡🤖🥳👍😈👹🧠👖🍆🏋️‍♂️🐸🐵🦄🌈🍻🚀💡🎉🔑🇹🇭🚦🌙🛌🛎️
+  AGNOSTER_RANDOM_EMOJI_EACH_PROMPT 0
+  AGNOSTER_RANDOM_EMOJI_REALLY_RANDOM 1
+  AGNOSTER_PROMPT_SEGMENTS "prompt_status prompt_git prompt_context prompt_virtualenv prompt_vaulted prompt_dir prompt_kubecontext"
+)
+
 ### User-configurable variables
 
 # 'full', 'short', or 'shrink'
-: ${AGNOSTER_PATH_STYLE:=full}
+: ${AGNOSTER_PATH_STYLE:=${AGNOSTER_DEFAULT_OPTS[AGNOSTER_PATH_STYLE]}}
 # 'light' or 'dark', for which version of Solarized you're using
-: ${AGNOSTER_THEME_VARIANT:=dark}
+: ${AGNOSTER_THEME_VARIANT:=${AGNOSTER_DEFAULT_OPTS[AGNOSTER_THEME_VARIANT]}}
 # The emoji to draw from for prompt_random_emoji
 if [[ -z "$AGNOSTER_RANDOM_EMOJI" ]]; then
-  AGNOSTER_RANDOM_EMOJI=🔥💀👑😎😜🤡🤖🥳👍😈👹🧠👖🍆🏋️‍♂️🐸🐵🦄🌈🍻🚀💡🎉🔑🇹🇭🚦🌙🛌🛎️
+  AGNOSTER_RANDOM_EMOJI=${AGNOSTER_DEFAULT_OPTS[AGNOSTER_RANDOM_EMOJI]}
 fi
 # Whether to change the random emoji each time the prompt is displayed
-: ${AGNOSTER_RANDOM_EMOJI_EACH_PROMPT:=0}
+: ${AGNOSTER_RANDOM_EMOJI_EACH_PROMPT:=${AGNOSTER_DEFAULT_OPTS[AGNOSTER_RANDOM_EMOJI_EACH_PROMPT]}}
 
 ### Segments of the prompt
 # See bottom of script for default value
 
-typeset -aHg AGNOSTER_PROMPT_SEGMENTS
+typeset -aH AGNOSTER_PROMPT_SEGMENTS
 
 ### Color setup
 
@@ -504,15 +514,7 @@ prompt_agnoster_setup() {
   prompt_opts=(cr subst sp percent)
 
   if [[ -z "$AGNOSTER_PROMPT_SEGMENTS" ]]; then
-    AGNOSTER_PROMPT_SEGMENTS=(
-      prompt_status
-      prompt_git
-      prompt_context
-      prompt_virtualenv
-      prompt_vaulted
-      prompt_dir
-      prompt_kubecontext
-    )
+    AGNOSTER_PROMPT_SEGMENTS=( ${=AGNOSTER_DEFAULT_OPTS[AGNOSTER_PROMPT_SEGMENTS]} )
   fi
 
   agnj_setup_colors
@@ -547,10 +549,14 @@ agnoster_setopt() {
     VIRTUAL_ENV_DISABLE_PROMPT
     DEFAULT_USER
   )
-  local varname
+  local varname default val
   for varname in $optvars; do
     if [[ -n "${(P)varname}" ]]; then
-      echo "${varname} = ${(P)varname}"
+      default="${AGNOSTER_DEFAULT_OPTS[$varname]}";
+      val="${(P)varname}"
+      if [[ -z "$default" || ( "$val" != "$default" ) ]]; then
+        echo "${varname} = ${(P)varname}"
+      fi
     fi
   done
 }
