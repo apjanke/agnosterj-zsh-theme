@@ -547,8 +547,8 @@ agnoster_setopt() {
     AGNOSTER_RANDOM_EMOJI_EACH_PROMPT
     AGNOSTER_RANDOM_EMOJI_REALLY_RANDOM
     VIRTUAL_ENV_DISABLE_PROMPT
-    DEFAULT_USER
   )
+  # Do not display DEFAULT_USER; some people might consider that a privacy issue
   local varname default val
   for varname in $optvars; do
     if [[ -n "${(P)varname}" ]]; then
