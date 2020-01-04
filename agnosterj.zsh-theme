@@ -201,7 +201,7 @@ prompt_context() {
 
 # Git: branch/detached head, dirty status
 prompt_git() {
-  local color ref mode
+  local color ref mode ahead behind
   local SEGMENT_SEPARATOR BRANCH DETACHED PLUSMINUS CROSS LIGHTNING GEAR
   define_prompt_chars
   is_dirty() {
@@ -216,6 +216,10 @@ prompt_git() {
       color=green
       ref="${ref} "
     fi
+    ahead=$(git rev-list ${hook_com[branch]}@{upstream}..HEAD 2>/dev/null | wc -l)
+    (( $ahead )) && ref="${ref}⬆"
+    behind=$(git rev-list HEAD..${hook_com[branch]}@{upstream} 2>/dev/null | wc -l)
+    (( $behind )) && ref="${ref}⬇"
     if [[ "${ref/.../}" == "$ref" ]]; then
       ref="$BRANCH $ref"
     else
@@ -406,7 +410,6 @@ prompt_gcp() {
     fi
   fi
 }
-
 
 # Filesystem: filesystem on which the current working directory lies
 prompt_filesystem() {
