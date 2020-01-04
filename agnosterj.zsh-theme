@@ -504,7 +504,7 @@ prompt_agnoster_main() {
 
 prompt_agnoster_precmd() {
   vcs_info
-  if [[ ${AGNOSTER_PROMPT_SEGMENTS[(ie)prompt_random_emoji]} -le ${#AGNOSTER_PROMPT_SEGMENTS} ]]; then
+  if agnj_array_contains AGNOSTER_PROMPT_SEGMENTS random_emoji; then
     if [[ $AGNOSTER_RANDOM_EMOJI_EACH_PROMPT = 1 ]]; then
       AGNOSTER_FIXED_RANDOM_EMOJI=""
       # We need to bump $RANDOM here because prompt_agnoster_main runs in a subshell
@@ -543,6 +543,17 @@ prompt_agnoster_setup() {
 
   setopt prompt_subst
   PROMPT='%f%b%k$(prompt_agnoster_main) '
+}
+
+agnj_array_contains() {
+  local array_name="$1"
+  local value="$2"
+  local arr=(${(P)array_name})
+  if [[ ${arr[(ie)$value]} -le ${#arr} ]]; then
+    return 0
+  else
+    return 3
+  fi
 }
 
 agnj_debug() {
