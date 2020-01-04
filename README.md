@@ -50,6 +50,12 @@ If you get placeholder squares for the first and third characters, then you are 
 
 Download the files in this repo somewhere, and have your `~/.zshrc` `source` the `agnosterj.zsh-theme` file.
 
+```
+# This goes in your ~/.zshrc
+
+source ~/path/to/agnosterj-zsh-theme/agnosterj.zsh-theme
+```
+
 ## Installation under Oh My Zsh
 
 Download the files in this repo somewhere, like `~/local/repos/agnosterj-zsh-theme`.
