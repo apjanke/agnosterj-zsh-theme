@@ -40,6 +40,7 @@ typeset -ah AGNOSTER_KNOWN_SEGMENT_NAMES
 AGNOSTER_KNOWN_SEGMENT_NAMES=(
   aws
   azure
+  blank
   context
   dir
   filesystem
@@ -199,9 +200,14 @@ prompt_newline() {
   local SEGMENT_SEPARATOR BRANCH DETACHED PLUSMINUS CROSS LIGHTNING GEAR
   define_prompt_chars
   prompt_end
-  # TODO: Figure out how to make this a nicer color. Maybe take the last-used
-  # background color?
-  print -n "\n$SEGMENT_SEPARATOR"
+  # TODO: Need to communicate the fg color correctly to next segment so
+  # there's not an excess ">" at the beginning of the line.
+  print -n "\n"
+}
+
+prompt_blank() {
+  # TODO: A way to customize this' color
+  prompt_segment blue $AGNJ_COLOR_FG " "
 }
 
 ### Prompt components

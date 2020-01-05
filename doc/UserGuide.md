@@ -102,6 +102,10 @@ Configuration variables: `$AGNOSTER_PATH_STYLE`.
 
 Outputs a newline. Use this segment to break the prompt into multiple lines.
 
+### `blank`
+
+Just a blank space. Useful in conjunction with `newline` for formatting things.
+
 ### `k8s`
 
 ### `aws`
