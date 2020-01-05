@@ -1,4 +1,5 @@
-# AgnosterJ
+AgnosterJ
+===========
 
 This is a Zsh theme optimized for people who use:
 
@@ -58,44 +59,21 @@ Download the files in this repo somewhere, and have your `~/.zshrc` `source` the
 source ~/path/to/agnosterj-zsh-theme/agnosterj.zsh-theme
 ```
 
-## Installation under Oh My Zsh
+## Installation under Oh My Zsh or Prezto
 
-Download the files in this repo somewhere, like `~/local/repos/agnosterj-zsh-theme`.
-
-Then link it into your Oh My Zsh custom setup:
-
-```
-$ ln -s ~/local/repos/agnosterj-zsh-theme/agnosterj.zsh-theme $ZSH_CUSTOM/themes/agnosterj.zsh-theme
-```
-
-Then set it as your theme in your `~/.zshrc` before loading Oh My Zsh:
-
-```
-# This goes in your ~/.zshrc
-
-ZSH_THEME=agnosterj
-plugins=( osx themes )
-ZSH=${ZSH:-$HOME/.oh-my-zsh}
-source $ZSH/oh-my-zsh.zsh
-```
+See the [User Guide](https://github.com/apjanke/agnosterj-zsh-theme/doc/UserGuide.md) for instructions.
 
 # Configuration
 
-AgnosterJ can be configured by setting these environment variables.
+AgnosterJ can be configured by setting various environment variables. For example:
 
 * `$AGNOSTER_PROMPT_SEGMENTS` - List of segments to include in your prompt.
 * `$AGNOSTER_PATH_STYLE` – `full`, `short`, or `shrink` – Controls how the current directory is displayed.
-* `$AGNOSTER_DISPLAY_EXIT_STATUS` – If 1, includes the exit status value in the status segment for unsuccessful process exits.
-* `$AGNOSTER_CONTEXT_FG`, `$AGNOSTER_CONTEXT_BG` – Override colors for the user/host context segment. Useful if you want to set this on a per-host basis.
-* `$AGNOSTER_SEPARATOR_STYLE` – Choose a different separator, if you have a font with the [Powerline Extra](https://github.com/ryanoasis/powerline-extra-symbols) symbols (not just regular Powerline). ([Nerd Fonts](https://github.com/ryanoasis/nerd-fonts) is a good way to get these.)
-  * Options: `original`, `curvy`, `angly`, `angly-up`, `flame`, `littleboxes`, `boxes`, `fade`, `hexes`, `lego`, `lego2`, `thingie`
 * `$DEFAULT_USER` - A user name you typically log in as, and which should be omitted from the prompt display when you are that user.
-* `$VIRTUAL_ENV_DISABLE_PROMPT` – Set this to any nonempty value to disable Python virtualenv/conda env display.
-* `$AGNOSTER_RANDOM_EMOJI_EACH_PROMPT` – Whether the `prompt_random_emoji` segment should use a different emoji each time a prompt is displayed (1) or keep the same emoji for the duration of a shell session (0).
-* `$AGNOSTER_RANDOM_EMOJI` – The list of emoji characters that `prompt_random_emoji` will draw from.
-* `$AGNOSTER_RANDOM_EMOJI_REALLY_RANDOM` – Set to `1` to get a wider range of random emoji.
 
-You can call the `agnoster_setopt` function to see what all the current variables affecting AgnosterJ are set to.
+See the [User Guide](https://github.com/apjanke/agnosterj-zsh-theme/doc/UserGuide.md) for details on all configuration variables.
+
+You can call the `agnoster_setopt` function to see what the current variables affecting AgnosterJ are set to.
 
 ## Customizing your prompt
 
@@ -108,7 +86,7 @@ By default, the prompt has these segments in this order:
 
 If you want to add, remove, or reorder some segments of the prompt, you can use the array environment variable named `AGNOSTER_PROMPT_SEGMENTS`. There are also `agnoster_add_segment` and `agnoster_remove_segment` functions to help you do this.
 
-There are many prompt segments available that are not enabled by default. See the source code for options!
+There are many prompt segments available that are not enabled by default. See the source code or [User Guide](https://github.com/apjanke/agnosterj-zsh-theme/doc/UserGuide.md) for options!
 
 Optional segments include:
 - `newline`
@@ -118,7 +96,6 @@ Optional segments include:
 - `gcp`
 - `filesystem`
 - `random_emoji`
-
 
 ### Examples
 
