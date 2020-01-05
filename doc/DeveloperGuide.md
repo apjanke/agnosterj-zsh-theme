@@ -1,7 +1,7 @@
 AgnosterJ Developer Guide
 =========================
 
-This is the Developer Guide for AgnosterJ. This is for people who want to hack on AgnosterJ itself. If you’re a user and want to know how to use AgnosterJ in your shell, see the [User Guide](https://github.com/apjanke/agnosterj-zsh-theme/doc/UserGuide.md) instead.
+This is the Developer Guide for AgnosterJ. This is for people who want to hack on AgnosterJ itself. If you’re a user and want to know how to use AgnosterJ in your shell, see the [User Guide](https://github.com/apjanke/agnosterj-zsh-theme/blob/master/doc/UserGuide.md) instead.
 
 
 TODO: Put stuff here.

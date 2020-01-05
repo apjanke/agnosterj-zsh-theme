@@ -61,7 +61,7 @@ source ~/path/to/agnosterj-zsh-theme/agnosterj.zsh-theme
 
 ## Installation under Oh My Zsh or Prezto
 
-See the [User Guide](https://github.com/apjanke/agnosterj-zsh-theme/doc/UserGuide.md) for instructions.
+See the [User Guide](https://github.com/apjanke/agnosterj-zsh-theme/blob/master/doc/UserGuide.md) for instructions.
 
 # Configuration
 
@@ -71,7 +71,7 @@ AgnosterJ can be configured by setting various environment variables. For exampl
 * `$AGNOSTER_PATH_STYLE` – `full`, `short`, or `shrink` – Controls how the current directory is displayed.
 * `$DEFAULT_USER` - A user name you typically log in as, and which should be omitted from the prompt display when you are that user.
 
-See the [User Guide](https://github.com/apjanke/agnosterj-zsh-theme/doc/UserGuide.md) for details on all configuration variables.
+See the [User Guide](https://github.com/apjanke/agnosterj-zsh-theme/blob/master/doc/UserGuide.md) for details on all configuration variables.
 
 You can call the `agnoster_setopt` function to see what the current variables affecting AgnosterJ are set to.
 
@@ -86,7 +86,7 @@ By default, the prompt has these segments in this order:
 
 If you want to add, remove, or reorder some segments of the prompt, you can use the array environment variable named `AGNOSTER_PROMPT_SEGMENTS`. There are also `agnoster_add_segment` and `agnoster_remove_segment` functions to help you do this.
 
-There are many prompt segments available that are not enabled by default. See the source code or [User Guide](https://github.com/apjanke/agnosterj-zsh-theme/doc/UserGuide.md) for options!
+There are many prompt segments available that are not enabled by default. See the source code or [User Guide](https://github.com/apjanke/agnosterj-zsh-theme/blob/master/doc/UserGuide.md) for options!
 
 Optional segments include:
 - `newline`
