@@ -54,6 +54,40 @@ source $ZSH/oh-my-zsh.zsh
 
 TODO
 
+# Setting up Powerline
+
+Agnoster uses a special set of characters called the “Powerline icons”, and you must use a special “Powerline-patched” font that supports them. Most fonts do not have these icons!
+
+You can either use a new version of iTerm2, which now has Powerline support built in, or install and use a Powerline-patched font.
+
+### Using iTerm2
+
+Fire up iTerm2, open your Profile in settings, and turn on “Use built-in Powerline glyphs”. That’s it!
+
+![iTerm2 Powerline glyph support in profile](images/iTerm2-Powerline-Yay.png)
+
+### Using a Powerline-patched font
+
+You can download Powerline-patched fonts from a couple places:
+
+* [Nerd Fonts](https://www.nerdfonts.com/)
+* The [`powerline/fonts` repo](https://github.com/powerline/fonts) on GitHub
+
+I recommend using Nerd Fonts. They’re well packaged, and include other cool symbols, some of which AgnosterJ can also make use of. The particular font I mostly use is the “Meslo LG M NerdFont” font.
+
+If you‘re on a Mac running Homebrew, you can easily install these with Homebrew Cask using the `cask-fonts` tap:
+
+```
+brew tap homebrew/cask-fonts
+brew cask install font-meslo-nerd-font
+```
+
+Install one or more of these fonts on your machine, and then configure your terminal emulator to use them. You might have to set separate “regular font” and “font for non-ASCII characters” items, depending on what terminal emulator program you’re using.
+
+#### Not the fonts-powerline Debian package
+
+There is a Debian package called `fonts-powerline`. This will _not_ work for you! It does not contain Powerline-patched fonts. It only contains small fonts with _just_ the Powerline symbol glyphs. That’s not what you need.
+
 # Configuration
 
 ## Customizing your segment list
