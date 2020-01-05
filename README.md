@@ -4,7 +4,7 @@ AgnosterJ
 This is a Zsh theme optimized for people who use:
 
 - The [Solarized](https://ethanschoonover.com/solarized/) color scheme
-- Git
+- Git or other VCS tools
 - Unicode-compatible fonts and terminals
 
 For Mac users, I highly recommend iTerm2 + Solarized Dark.
