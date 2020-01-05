@@ -15,14 +15,18 @@ The original Agnoster Theme, while not minimal, tried to stay small, supporting 
 
 # Requirements
 
-* Zsh (I'm not sure what the minimum version is)
+* [Zsh](http://zsh.sourceforge.net/) (I'm not sure what the minimum version is; 5.3 and later definitely work)
 * Powerline font support
 
 ### Powerline fonts
 
 If you are using iTerm2, then Powerline support is built in. To enable it, find your profile in Settings > Profiles, select the Text tab, and turn on "Use built-in Powerline glyphs". This is easier than installing a special font!
 
-**NOTE:** If you are not using iTerm2, you will need to install a [Powerline-patched font](https://github.com/powerline/fonts) for this theme to render correctly. (Note: installing the `fonts-powerline` Debian package does not work!)
+**NOTE:** If you are not using iTerm2, you will need to install a "Powerline-patched font" for this theme to render correctly. There’s a couple places you can get these easily:
+* [Nerd Fonts](https://www.nerdfonts.com/) (I recommend this one.)
+* The [`powerline/fonts` repo](https://github.com/powerline/fonts) on GitHub
+
+(Note: Installing the `fonts-powerline` Debian package does _not_ work!)
 
 To test if your terminal and font support Powerline, check that all the necessary characters are supported by copying the following command to your terminal: `echo "\ue0b0 \u00b1 \ue0a0 \u27a6 \u2718 \u26a1 \u2699"`. The result should look like this:
 
