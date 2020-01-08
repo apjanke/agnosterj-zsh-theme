@@ -571,6 +571,7 @@ prompt_agnoster_setup() {
   PROMPT='%f%b%k$(prompt_agnoster_main) '
 }
 
+# TODO: Consider replacing with `if (( $haystack[(I)$needle] > 0 ))`
 agnj_array_contains() {
   local array_name="$1"
   local needle_value="$2"
