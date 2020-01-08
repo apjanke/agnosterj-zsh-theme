@@ -578,7 +578,7 @@ agnj_array_contains() {
   if [[ ${arr[(ie)$needle_value]} -le ${#arr} ]]; then
     return 0
   else
-    return 3
+    return 1
   fi
 }
 
