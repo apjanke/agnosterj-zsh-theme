@@ -46,7 +46,7 @@ Then set `agnosterj` as your theme in your `~/.zshrc` before loading Oh My Zsh:
 ZSH_THEME=agnosterj
 plugins=( osx themes )
 ZSH=${ZSH:-$HOME/.oh-my-zsh}
-source $ZSH/oh-my-zsh.zsh
+source $ZSH/oh-my-zsh.sh
 ```
 
 #### Setup with Prezto
