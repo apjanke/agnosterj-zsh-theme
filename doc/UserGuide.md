@@ -1,13 +1,12 @@
-AgnosterJ User Guide
-====================
+# AgnosterJ User Guide
 
 This is the User Guide for AgnosterJ. This is for people who want to use AgnosterJ in their shell. If you’re a developer and want to know how to hack on AgnosterJ itself, see the [Developer Guide](https://github.com/apjanke/agnosterj-zsh-theme/blob/master/doc/DeveloperGuide.md) instead.
 
 TODO: Put stuff here.
 
-# Installation
+## Installation
 
-## Getting AgnosterJ
+### Getting AgnosterJ
 
 You can get AgnosterJ by either:
   * Downloading it from https://github.com/apjanke/agnosterj-zsh-theme/archive/master.zip
@@ -15,33 +14,33 @@ You can get AgnosterJ by either:
 
 I like to clone the repo, and put it at `~/local/repos/agnosterj-zsh-theme`.
 
-## Setting up AgnosterJ in your shell
+### Setting up AgnosterJ in your shell
 
 Once you have the files on your disk, you need to instruct Zsh to use the theme.
 
-### Plain Zsh setup
+#### Plain Zsh setup
 
 Have your `~/.zshrc` use the `source` command to load the `agnosterj.zsh-theme` file.
 
-```
+```zsh
 # This goes in your ~/.zshrc
 
 source ~/path/to/agnosterj-zsh-theme/agnosterj.zsh-theme
 ```
 
-### Setup with Oh My Zsh
+#### Setup with Oh My Zsh
 
 Link AgnosterJ into your Oh My Zsh custom setup, so it’s visible to Oh My Zsh:
 
-```
-$ ln -s ~/local/repos/agnosterj-zsh-theme/agnosterj.zsh-theme $ZSH_CUSTOM/themes/agnosterj.zsh-theme
+```bash
+ln -s ~/local/repos/agnosterj-zsh-theme/agnosterj.zsh-theme $ZSH_CUSTOM/themes/agnosterj.zsh-theme
 ```
 
 (You may need to set `$ZSH_CUSTOM` and create your Oh My Zsh custom directory first.)
 
 Then set `agnosterj` as your theme in your `~/.zshrc` before loading Oh My Zsh:
 
-```
+```zsh
 # This goes in your ~/.zshrc
 
 ZSH_THEME=agnosterj
@@ -50,23 +49,23 @@ ZSH=${ZSH:-$HOME/.oh-my-zsh}
 source $ZSH/oh-my-zsh.zsh
 ```
 
-### Setup with Prezto
+#### Setup with Prezto
 
 TODO
 
-# Setting up Powerline
+### Setting up Powerline
 
 Agnoster uses a special set of characters called the “Powerline icons”, and you must use a special “Powerline-patched” font that supports them. Most fonts do not have these icons!
 
 You can either use a new version of iTerm2, which now has Powerline support built in, or install and use a Powerline-patched font.
 
-### Using iTerm2
+#### Using iTerm2
 
 Fire up iTerm2, open your Profile in settings, and turn on “Use built-in Powerline glyphs”. That’s it!
 
 ![iTerm2 Powerline glyph support in profile](images/iTerm2-Powerline-Yay.png)
 
-### Using a Powerline-patched font
+##### Using a Powerline-patched font
 
 You can download Powerline-patched fonts from a couple places:
 
@@ -77,22 +76,22 @@ I recommend using Nerd Fonts. They’re well packaged, and include other cool sy
 
 If you‘re on a Mac running Homebrew, you can easily install these with Homebrew Cask using the `cask-fonts` tap:
 
-```
+```bash
 brew tap homebrew/cask-fonts
 brew cask install font-meslo-nerd-font
 ```
 
 Install one or more of these fonts on your machine, and then configure your terminal emulator to use them. You might have to set separate “regular font” and “font for non-ASCII characters” items, depending on what terminal emulator program you’re using.
 
-#### Not the fonts-powerline Debian package
+##### Not the fonts-powerline Debian package
 
 There is a Debian package called `fonts-powerline`. This will _not_ work for you! It does not contain Powerline-patched fonts. It only contains small fonts with _just_ the Powerline symbol glyphs. That’s not what you need.
 
-# Configuration
+## Configuration
 
-## Customizing your segment list
+### Customizing your segment list
 
-## Configuration variables
+### Configuration variables
 
 AgnosterJ's behavior can be configured by setting these environment variables.
 
@@ -110,7 +109,7 @@ AgnosterJ's behavior can be configured by setting these environment variables.
 
 You can call the `agnoster_setopt` function to see what the current variables affecting AgnosterJ are set to.
 
-# Segments
+## Segments
 
 Here are all the segments that AgnosterJ defines.
 
