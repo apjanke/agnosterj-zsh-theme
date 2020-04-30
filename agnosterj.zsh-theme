@@ -359,14 +359,13 @@ prompt_virtualenv() {
     if [[ -n "$CONDA_DEFAULT_ENV" ]]; then
       env="$CONDA_DEFAULT_ENV"
     else
-      env=`basename "$VIRTUAL_ENV"`;
+      env=`basename "$VIRTUAL_ENV"`
     fi
     if [[ -n "$env" ]]; then
       prompt_segment blue black "($env)"
     fi
   fi
 }
-
 
 epoch_date() {
   unamestr=`uname`
