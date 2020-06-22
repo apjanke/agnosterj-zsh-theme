@@ -31,6 +31,7 @@ typeset -Ah AGNOSTER_DEFAULT_OPTS
 AGNOSTER_DEFAULT_OPTS=(
   AGNOSTER_THEME_VARIANT dark
   AGNOSTER_PATH_STYLE full
+  AGNOSTER_ABBREVIATE_HOME_DIR 1
   AGNOSTER_RANDOM_EMOJI 🔥💀👑😎😜🤡🤖🥳👍😈👹🧠👖🍆🏋️‍♂️🐸🐵🦄🌈🍻🚀💡🎉🔑🇹🇭🚦🌙🛌🛎️
   AGNOSTER_RANDOM_EMOJI_EACH_PROMPT 0
   AGNOSTER_RANDOM_EMOJI_REALLY_RANDOM 1
@@ -278,18 +279,30 @@ prompt_dir() {
   local path_seg
   case "$AGNOSTER_PATH_STYLE" in
     short)
-      path_seg=' %1~ '
+      if [[ $AGNOSTER_ABBREVIATE_HOME_DIR = 0 ]]; then
+        path_seg=' %1d '
+      else
+        path_seg=' %1~ '
+      fi
       ;;
     shrink)
       if which shrink_path >&/dev/null; then
         # Requires Oh My Zsh's shrink-path plugin or compatible
         path_seg=" $(shrink_path -f) "
       else
-        path_seg=$(print -P ' %~ ' | sed -E -e "s#([^a-z]*[a-z])[^/]*/#\1/#g")
+        if [[ $AGNOSTER_ABBREVIATE_HOME_DIR = 0 ]]; then
+          path_seg=$(print -P ' %d ' | sed -E -e "s#([^a-z]*[a-z])[^/]*/#\1/#g")
+        else
+          path_seg=$(print -P ' %~ ' | sed -E -e "s#([^a-z]*[a-z])[^/]*/#\1/#g")
+        fi
       fi
       ;;
     full|*)
-      path_seg=' %~ '
+      if [[ $AGNOSTER_ABBREVIATE_HOME_DIR = 0 ]]; then
+        path_seg=' %d '
+      else
+        path_seg=' %~ '
+      fi
       ;;
   esac
   prompt_segment blue $AGNJ_COLOR_FG "${path_seg}"
