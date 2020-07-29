@@ -71,7 +71,7 @@ See the [User Guide](https://github.com/apjanke/agnosterj-zsh-theme/blob/master/
 
 AgnosterJ can be configured by setting various environment variables. For example:
 
-* `$AGNOSTER_PROMPT_SEGMENTS` - List of segments to include in your prompt.
+* `$AGNOSTER_PROMPT_SEGMENTS` - Array of segments to include in your prompt.
 * `$AGNOSTER_PATH_STYLE` – `full`, `short`, or `shrink` – Controls how the current directory is displayed.
 * `$DEFAULT_USER` - A user name you typically log in as, and which should be omitted from the prompt display when you are that user.
 
@@ -87,7 +87,9 @@ By default, the prompt has these segments in this order:
 * `git`
 * `context`
 * `virtualenv`
+* `vaulted`
 * `dir`
+* `kubecontext`
 
 If you want to add, remove, or reorder some segments of the prompt, you can use the array environment variable named `AGNOSTER_PROMPT_SEGMENTS`. There are also `agnoster_add_segment` and `agnoster_remove_segment` functions to help you do this.
 
@@ -102,6 +104,9 @@ Optional segments include:
 * `gcp`
 * `filesystem`
 * `random_emoji`
+* `blank`
+* `hg`
+* `k8s`
 
 ### Examples
 
