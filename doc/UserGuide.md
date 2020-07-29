@@ -108,6 +108,7 @@ AgnosterJ's behavior can be configured by setting these environment variables.
 * `$AGNOSTER_RANDOM_EMOJI_EACH_PROMPT` – Whether the `prompt_random_emoji` segment should use a different emoji each time a prompt is displayed (1) or keep the same emoji for the duration of a shell session (0).
 * `$AGNOSTER_RANDOM_EMOJI` – The list of emoji characters that `prompt_random_emoji` will draw from.
 * `$AGNOSTER_RANDOM_EMOJI_REALLY_RANDOM` – Set to `1` to get a wider range of random emoji.
+* `$AGNOSTER_PROMPT_TIMEOUT` - Maximum time (seconds) to allow for potentially slow prompt segments. Currently only supported by git.
 
 You can call the `agnoster_setopt` function to see what the current variables affecting AgnosterJ are set to.
 
@@ -119,11 +120,25 @@ TODO: Fill this in.
 
 ### `status`
 
+Adds an 'X' if the previous command had a non-zero exit.
+
 ### `git`
+
+Displays the current git branch and whether the repository has been modified.
+
+Checking for modified files is potentially slow. Set `$AGNOSTER_PROMPT_TIMEOUT` to limit the maximum time to spend waiting for `git status`.
+
+Configuration variables: `$AGNOSTER_PROMPT_TIMEOUT`.
 
 ### `context`
 
+Include 'user@hostname'. The user will be ommitted if it matches `$DEFAULT_USER`. Hostname is only included for ssh connections.
+
+Configuration variables: `$DEFAULT_USER`.
+
 ### `virtualenv`
+
+Name of the current conda or virtualenv environment.
 
 Configuration variables: `$VIRTUAL_ENV_DISABLE_PROMPT`.
 
@@ -143,16 +158,29 @@ Just a blank space. Useful in conjunction with `newline` for formatting things.
 
 ### `k8s`
 
+Kubernetes context
+
+Configuration variables: `$KUBECONFIG`. Custom config file (default `~/.kube/config`)
+
 ### `aws`
+
+Amazon AWS profile
 
 ### `azure`
 
+Microsoft Azure cloud
+
 ### `gcp`
 
+Google cloud project
+
 ### `filesystem`
+
+Filesystem for the current directory (e.g. /dev/sda1)
 
 ### `random_emoji`
 
 Displays a random emoji character, selected from either a predefined list, or a wide range of the emoji Unicode range.
 
 Configuration variables: `$AGNOSTER_RANDOM_EMOJI`, `$AGNOSTER_RANDOM_EMOJI_EACH_PROMPT`, `$AGNOSTER_RANDOM_EMOJI_REALLY_RANDOM`.
+

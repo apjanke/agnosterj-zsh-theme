@@ -36,6 +36,7 @@ AGNOSTER_DEFAULT_OPTS=(
   AGNOSTER_RANDOM_EMOJI_EACH_PROMPT 0
   AGNOSTER_RANDOM_EMOJI_REALLY_RANDOM 1
   AGNOSTER_PROMPT_SEGMENTS "status git context virtualenv vaulted dir kubecontext"
+  AGNOSTER_PROMPT_TIMEOUT 0
 )
 typeset -ah AGNOSTER_KNOWN_SEGMENT_NAMES
 AGNOSTER_KNOWN_SEGMENT_NAMES=(
@@ -69,6 +70,8 @@ if [[ -z "$AGNOSTER_RANDOM_EMOJI" ]]; then
 fi
 # Whether to change the random emoji each time the prompt is displayed
 : ${AGNOSTER_RANDOM_EMOJI_EACH_PROMPT:=${AGNOSTER_DEFAULT_OPTS[AGNOSTER_RANDOM_EMOJI_EACH_PROMPT]}}
+# Prompt timeout
+: ${AGNOSTER_PROMPT_TIMEOUT:=${AGNOSTER_DEFAULT_OPTS[AGNOSTER_PROMPT_TIMEOUT]}}
 
 ### Segments of the prompt
 # See bottom of script for default value
@@ -244,15 +247,31 @@ prompt_context() {
 
 # Git: branch/detached head, dirty status
 prompt_git() {
-  local color ref mode ahead behind
+  local color ref mode ahead behind dirty
   local SEGMENT_SEPARATOR BRANCH DETACHED PLUSMINUS CROSS LIGHTNING GEAR
   define_prompt_chars
+  if [[ "$(git config --get oh-my-zsh.hide-status 2>/dev/null)" = 1 ]]; then
+    return
+  fi
   is_dirty() {
-    test -n "$(git status --porcelain --ignore-submodules 2>/dev/null)"
+    local dirty
+    if [[ "${AGNOSTER_PROMPT_TIMEOUT:-0}" > 0 ]]; then
+      dirty="$(timeout $AGNOSTER_PROMPT_TIMEOUT git status --porcelain --ignore-submodules 2>/dev/null)"
+      [[ $? == 124 ]] && return 124  # timeout
+    else
+      dirty="$(git status --porcelain --ignore-submodules 2>/dev/null)"
+    fi
+
+    test -n "$dirty"
   }
   ref="$vcs_info_msg_0_"
   if [[ -n "$ref" ]]; then
-    if is_dirty; then
+    is_dirty
+    dirty=$?
+    if [[ $dirty == 124 ]]; then
+      color=red
+      ref="${ref} ⌛️"
+    elif [[ $dirty == 0 ]]; then
       color=yellow
       ref="${ref} $PLUSMINUS"
     else
@@ -663,6 +682,7 @@ agnoster_setopt() {
     AGNOSTER_RANDOM_EMOJI
     AGNOSTER_RANDOM_EMOJI_EACH_PROMPT
     AGNOSTER_RANDOM_EMOJI_REALLY_RANDOM
+    AGNOSTER_PROMPT_TIMEOUT
     VIRTUAL_ENV_DISABLE_PROMPT
   )
   local varname default val
